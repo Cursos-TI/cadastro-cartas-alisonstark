@@ -11,12 +11,13 @@ int main() {
   float area, pib;
 
   // Área para entrada de dados
+  // Usar " %49[^\n]" para ler strings com espaços, pois %s gerou problemas
   printf("Digite o estado: ");
-  scanf("%s", estado);
+  scanf(" %49[^\n]", estado);
   printf("Digite o código da carta: ");
   scanf("%s", codigoCarta);
   printf("Digite o nome da cidade: ");
-  scanf("%s", nomeCidade);
+  scanf(" %49[^\n]", nomeCidade);
   printf("Digite a população: ");
   scanf("%d", &populacao);
   printf("Digite a área (km²): ");
