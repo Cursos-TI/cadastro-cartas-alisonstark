@@ -7,6 +7,9 @@
 int main() {
   // Testar em que repo esse commit vai ser salvo
   printf("Desafio Super Trunfo - Países\n");
+
+  // Testar commit a partir do codespace
+  printf("Desafio Aceito\n");
   // Área para definição das variáveis para armazenar as propriedades das cidades
 
   // Área para entrada de dados
