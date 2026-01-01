@@ -1,15 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 // Desafio Super Trunfo - Países
 // Tema 1 - Cadastro das cartas
 // Objetivo: No nível novato você deve criar as cartas representando as cidades utilizando scanf para entrada de dados e printf para exibir as informações.
 
 int main() {
+
   // Área para definição das variáveis para armazenar as propriedades das cidades
   char estado[50], codigoCarta[10], nomeCidade[50];
   int numPontosTuristicos;
   unsigned long int populacao;
   float area, pib, densPopulacional, pibPerCapita, superPoder;
+
+  // Área de definição de outras variáveis
+  srand(time(NULL));
+  unsigned short numAleatorio = (rand() % 7) + 1;
 
   // Duplicar variáveis para a segunda carta
   char estado2[50], codigoCarta2[10], nomeCidade2[50];
@@ -64,16 +71,57 @@ int main() {
   pibPerCapita2 = pib2 / populacao2;
   superPoder2 = numPontosTuristicos2 + populacao2 + area2 + pib2 + (1.0 / densPopulacional2) + pibPerCapita2;
 
-
+  printf("O número aleatório gerado foi: %u\n", numAleatorio);
   // Área de definição da carta vencedora, em que se compara para cada atributo da carta #1 com a carta #2, por padrão
-  printf("\n### Carta #1 desafia Carta #2\n");
-  printf("População: %d", (populacao > populacao2));
-  printf("\nÁrea: %d", (area > area2));
-  printf("\nPIB: %d", (pib > pib2));
-  printf("\nNúmero de pontos turísticos: %d", (numPontosTuristicos > numPontosTuristicos2));
-  printf("\nDensidade populacional: %d", (densPopulacional < densPopulacional2)); // Menor densidade é melhor
-  printf("\nPIB per capita: %d", (pibPerCapita > pibPerCapita2));
-  printf("\nSuper poder: %d\n\nFIM", (superPoder > superPoder2));
+  if(numAleatorio == 1){
+    if(populacao > populacao2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else if(numAleatorio == 2){
+    if(area > area2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else if(numAleatorio == 3){
+    if(pib > pib2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else if(numAleatorio == 4){
+    if(numPontosTuristicos > numPontosTuristicos2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else if(numAleatorio == 5){
+    if(densPopulacional < densPopulacional2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else if(numAleatorio == 6){
+    if(pibPerCapita > pibPerCapita2){
+      printf("A carta 1 vence (%s)!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s)!", nomeCidade2);
+    }
+  }
+  else{
+    if(superPoder > superPoder2){
+      printf("A carta 1 vence (%s) vence!", nomeCidade);
+    } else {
+      printf("A carta 2 vence (%s) vence!", nomeCidade2);
+    }
+  }
 
 return 0;
 } 
