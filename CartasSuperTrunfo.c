@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+// #include <stdlib.h>
+// #include <time.h>
 
 // Desafio Super Trunfo - Países
 // Tema 1 - Cadastro das cartas
@@ -15,8 +15,9 @@ int main() {
   float area, pib, densPopulacional, pibPerCapita, superPoder;
 
   // Área de definição de outras variáveis
-  srand(time(NULL));
-  unsigned short numAleatorio = (rand() % 7) + 1;
+  // srand(time(NULL));
+  // unsigned short numAleatorio = (rand() % 7) + 1;
+  unsigned short escolhaJogador;
 
   // Duplicar variáveis para a segunda carta
   char estado2[50], codigoCarta2[10], nomeCidade2[50];
@@ -71,56 +72,65 @@ int main() {
   pibPerCapita2 = pib2 / populacao2;
   superPoder2 = numPontosTuristicos2 + populacao2 + area2 + pib2 + (1.0 / densPopulacional2) + pibPerCapita2;
 
-  printf("O número aleatório gerado foi: %u\n", numAleatorio);
+  // printf("O número aleatório gerado foi: %u\n", numAleatorio);
   // Área de definição da carta vencedora, em que se compara para cada atributo da carta #1 com a carta #2, por padrão
-  if(numAleatorio == 1){
+
+  printf("\n##### Escolha o atributo da carta para competir nesta rodada #####");
+  printf("\n 1. População\n 2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n 7. Super Poder\n");
+  printf("Digite o número do atributo escolhido: ");
+  scanf("%u", escolhaJogador);
+
+  switch (escolhaJogador)
+  {
+  case 1:
     if(populacao > populacao2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else if(numAleatorio == 2){
+    break;
+  case 2:
     if(area > area2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else if(numAleatorio == 3){
+    break;
+  case 3:
     if(pib > pib2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else if(numAleatorio == 4){
+    break;
+  case 4:
     if(numPontosTuristicos > numPontosTuristicos2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else if(numAleatorio == 5){
+    break;
+  case 5:
     if(densPopulacional < densPopulacional2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else if(numAleatorio == 6){
+    break;
+  case 6:
     if(pibPerCapita > pibPerCapita2){
       printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
       printf("A carta 2 vence (%s)!", nomeCidade2);
     }
-  }
-  else{
+    break;
+  default:
     if(superPoder > superPoder2){
-      printf("A carta 1 vence (%s) vence!", nomeCidade);
+        printf("A carta 1 vence (%s)!", nomeCidade);
     } else {
-      printf("A carta 2 vence (%s) vence!", nomeCidade2);
+        printf("A carta 2 vence (%s)!", nomeCidade2);
     }
+    break;
   }
 
   return 0;
