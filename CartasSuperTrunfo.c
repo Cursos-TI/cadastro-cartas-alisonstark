@@ -3,8 +3,8 @@
 #include <string.h>
 
 // Desafio Super Trunfo - Países
-// Tema 1 - Cadastro das cartas
-// Objetivo: No nível novato você deve criar as cartas representando as cidades utilizando scanf para entrada de dados e printf para exibir as informações.
+// Tema 3 - Lógica completa do jogo
+// Objetivo: Desenvolver a lógica completa do jogo de cartas Super Trunfo, permitindo que dois jogadores cadastrem suas cartas com propriedades específicas de cidades e comparem atributos para determinar a carta vencedora.
 
 int main() {
 
