@@ -1,5 +1,5 @@
 #include <stdio.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 // #include <time.h>
 
 // Desafio Super Trunfo - Países
@@ -10,14 +10,16 @@ int main() {
 
   // Área para definição das variáveis para armazenar as propriedades das cidades
   char estado[50], codigoCarta[10], nomeCidade[50];
+  char resultadoPrimeiroEmbate[100] = "", resultadoSegundoEmbate[100] = "";
   int numPontosTuristicos;
   unsigned long int populacao;
-  float area, pib, densPopulacional, pibPerCapita, superPoder;
+  float area, pib, densPopulacional, pibPerCapita, acc1, acc2;
 
   // Área de definição de outras variáveis
   // srand(time(NULL));
   // unsigned short numAleatorio = (rand() % 7) + 1;
-  unsigned short escolhaJogador;
+  unsigned short escolha1Jogador, escolha2Jogador; 
+  unsigned short numVitoriasCarta1 = 0, numVitoriasCarta2 = 0;
 
   // Duplicar variáveis para a segunda carta
   char estado2[50], codigoCarta2[10], nomeCidade2[50];
@@ -64,7 +66,6 @@ int main() {
   pib *= 1000000000; // Converter PIB de bilhões para reais
   densPopulacional = populacao / area;
   pibPerCapita = pib / populacao;
-  superPoder = numPontosTuristicos + populacao + area + pib + (1.0 / densPopulacional) + pibPerCapita;  // Potencial perda de precisão se populacao for muito grande
 
   // Área para cálculo de variáveis derivadas da carta #2
   pib2 *= 1000000000;
@@ -76,61 +77,356 @@ int main() {
   // Área de definição da carta vencedora, em que se compara para cada atributo da carta #1 com a carta #2, por padrão
 
   printf("\n##### Escolha o atributo da carta para competir nesta rodada #####");
-  printf("\n 1. População\n 2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n 7. Super Poder\n");
-  printf("Digite o número do atributo escolhido: ");
-  scanf("%u", escolhaJogador);
+  printf("\n 1. População\n 2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n");
+  printf("Digite o número de 1 atributo para competir nesta rodada: ");
+  scanf("Atributo #1: %u\n", &escolha1Jogador);
 
-  switch (escolhaJogador)
+  if (escolha1Jogador < 1 && escolha1Jogador > 6){ 
+    printf("Valor inválido! Escolha um número entre 1 e 6.\n");
+    printf("Saindo do jogo ......\n");
+    
+    return 1;
+  }
+
+  // Comparação dos atributos escolhidos para o primeiro embate
+  // Foi usada a função strcat para concatenar strings e ultoa/itoa/ftoa para converter números em strings
+  switch (escolha1Jogador)
   {
   case 1:
-    if(populacao > populacao2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
+    if (populacao > populacao2) { 
+      ultoa(populacao, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (População da Carta #1)");
+      numVitoriasCarta1++;
+
     } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
+      ultoa(populacao2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (População da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = populacao;
+    acc2 = populacao2;
     break;
+
   case 2:
     if(area > area2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
+      ftoa(area, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Área da Carta #1)");
+      numVitoriasCarta1++;
+
     } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
+      ftoa(area2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Área da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = area;
+    acc2 = area2;
     break;
+
   case 3:
     if(pib > pib2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
+      ftoa(pib, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (PIB da Carta #1)");
+      numVitoriasCarta1++;
     } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
+      ftoa(pib2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (PIB da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = pib;
+    acc2 = pib2;
     break;
+
   case 4:
     if(numPontosTuristicos > numPontosTuristicos2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
+      itoa(numPontosTuristicos, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Número de Pontos Turísticos da Carta #1)");
+      numVitoriasCarta1++;
     } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
+      itoa(numPontosTuristicos2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Número de Pontos Turísticos da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = numPontosTuristicos;
+    acc2 = numPontosTuristicos2;
     break;
+
   case 5:
     if(densPopulacional < densPopulacional2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
+      ftoa(densPopulacional, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Densidade Populacional da Carta #1)");
+      numVitoriasCarta1++;
     } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
+      ftoa(densPopulacional2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (Densidade Populacional da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = densPopulacional;
+    acc2 = densPopulacional2;
     break;
-  case 6:
-    if(pibPerCapita > pibPerCapita2){
-      printf("A carta 1 vence (%s)!", nomeCidade);
-    } else {
-      printf("A carta 2 vence (%s)!", nomeCidade2);
-    }
-    break;
+
   default:
-    if(superPoder > superPoder2){
-        printf("A carta 1 vence (%s)!", nomeCidade);
+    if(pibPerCapita > pibPerCapita2){
+      ftoa(pibPerCapita, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (PIB per Capita da Carta #1)");
+      numVitoriasCarta1++;
     } else {
-        printf("A carta 2 vence (%s)!", nomeCidade2);
+      ftoa(pibPerCapita2, resultadoPrimeiroEmbate, 10);
+      strcat(resultadoPrimeiroEmbate, " (PIB per Capita da Carta #2)");
+      numVitoriasCarta2++;
     }
+
+    acc1 = pibPerCapita;
+    acc2 = pibPerCapita2;
     break;
+  }
+
+  // Implementação da dinâmica do menu de seleção para a escolha do segundo atributo
+  switch(escolha1Jogador){
+    case 1:
+      printf("\n2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+      break;
+
+    case 2:
+      printf("\n 1. População\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+      break;
+
+    case 3:
+      printf("\n 1. População\n 2. Área\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n 6. PIB per Capita\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+      break;
+
+    case 4:
+      printf("\n 1. População\n 2. Área\n 3. PIB\n 5. Densidade Populacional\n 6. PIB per Capita\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+      break;
+    
+    case 5:
+      printf("\n 1. População\n 2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 6. PIB per Capita\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+    break;
+
+    default:
+      printf("\n 1. População\n 2. Área\n 3. PIB\n 4. Número de Pontos Turísticos\n 5. Densidade Populacional\n");
+      printf("Digite o número de mais 1 atributo para competir nesta rodada: ");
+      scanf("Atributo #2: %u\n", &escolha2Jogador);
+
+      if(escolha2Jogador == escolha1Jogador || (escolha2Jogador < 1 || escolha2Jogador > 6)){
+        printf("Valor inválido! Escolha um número entre 1 e 6, diferente do primeiro atributo escolhido.\n");
+        printf("Saindo do jogo ......\n");
+        
+        return 1;
+      }
+    break;
+  }
+
+  // Comparação dos atributos escolhidos para o segundo embate
+  switch (escolha2Jogador)
+  {
+  case 1:
+    if (populacao > populacao2) { 
+      ultoa(populacao, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (População da Carta #1)");
+      numVitoriasCarta1++;
+
+    } else {
+      ultoa(populacao2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (População da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += populacao;
+    acc2 += populacao2;
+    break;
+
+  case 2:
+    if(area > area2){
+      ftoa(area, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Área da Carta #1)");
+      numVitoriasCarta1++;
+    } else {
+      ftoa(area2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Área da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += area;
+    acc2 += area2;
+    break;
+
+  case 3:
+    if(pib > pib2){
+      ftoa(pib, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (PIB da Carta #1)");
+      numVitoriasCarta1++;
+
+    } else {
+      ftoa(pib2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (PIB da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += pib;
+    acc2 += pib2;
+    break;
+
+  case 4:
+    if(numPontosTuristicos > numPontosTuristicos2){
+      itoa(numPontosTuristicos, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Número de Pontos Turísticos da Carta #1)");
+      numVitoriasCarta1++;
+
+    } else {
+      itoa(numPontosTuristicos2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Número de Pontos Turísticos da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += numPontosTuristicos;
+    acc2 += numPontosTuristicos2;
+    break;
+
+  case 5:
+    if(densPopulacional < densPopulacional2){
+      ftoa(densPopulacional, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Densidade Populacional da Carta #1)");
+      numVitoriasCarta1++;
+
+    } else {
+      ftoa(densPopulacional2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (Densidade Populacional da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += densPopulacional;
+    acc2 += densPopulacional2;
+    break;
+
+  default:
+    if(pibPerCapita > pibPerCapita2){
+      ftoa(pibPerCapita, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (PIB per Capita da Carta #1)");
+      numVitoriasCarta1++;
+
+    } else {
+      ftoa(pibPerCapita2, resultadoSegundoEmbate, 10);
+      strcat(resultadoSegundoEmbate, " (PIB per Capita da Carta #2)");
+      numVitoriasCarta2++;
+    }
+
+    acc1 += pibPerCapita;
+    acc2 += pibPerCapita2;
+    break;
+  }
+
+  // Apresentação dos resultados dos embates, considerando empates (anunciar empate se houver), quais atributos foram escolhidos e o número de vitórias de cada carta
+  printf("\n##### Resultados dos embates #####\n");
+  switch(escolha1Jogador){
+    case 1:
+      printf("Atributo escolhido no primeiro embate: População\n");
+      break;
+    case 2:
+      printf("Atributo escolhido no primeiro embate: Área\n");
+      break;
+    case 3:
+      printf("Atributo escolhido no primeiro embate: PIB\n");
+      break;
+    case 4:
+      printf("Atributo escolhido no primeiro embate: Número de Pontos Turísticos\n");
+      break;
+    case 5:
+      printf("Atributo escolhido no primeiro embate: Densidade Populacional\n");
+      break;
+    default:
+      printf("Atributo escolhido no primeiro embate: PIB per Capita\n");
+      break;
+  }
+  printf("Vencedor: %s\n", resultadoPrimeiroEmbate);
+
+  switch(escolha2Jogador){
+    case 1:
+      printf("Atributo escolhido no segundo embate: População\n");
+      break;
+    case 2:
+      printf("Atributo escolhido no segundo embate: Área\n");
+      break;
+    case 3:
+      printf("Atributo escolhido no segundo embate: PIB\n");
+      break;
+    case 4:
+      printf("Atributo escolhido no segundo embate: Número de Pontos Turísticos\n");
+      break;
+    case 5:
+      printf("Atributo escolhido no segundo embate: Densidade Populacional\n");
+      break;
+    default:
+      printf("Atributo escolhido no segundo embate: PIB per Capita\n");
+      break;
+  } 
+  printf("Vencedor: %s\n", resultadoSegundoEmbate);
+
+  if(acc1 > acc2){
+    numVitoriasCarta1++;
+  } else {
+    numVitoriasCarta2++;
+  }
+
+  // Apresentação do resultado final, considerando o número de vitórias de cada carta e o acumulado dos atributos comparados
+  if(numVitoriasCarta1 > numVitoriasCarta2){
+    printf("\n##### Resultado Final Acumulado #####\n");
+    printf("Vencedora: Carta #1 (%s - %s)\n", codigoCarta, nomeCidade);
+  } else if (numVitoriasCarta2 > numVitoriasCarta1){
+    printf("\n##### Resultado Final Acumulado #####\n");
+    printf("Vencedora: Carta #2 (%s - %s)\n", codigoCarta2, nomeCidade2);
+  } else {
+    printf("\n##### Resultado Final Acumulado #####\n");
+    printf("Empate entre as cartas!\n");
   }
 
   return 0;
